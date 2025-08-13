@@ -22,8 +22,8 @@ export default async function handler(req, res) {
 
     const data = await apiResponse.json();
 
-    // CORS 설정을 여기에 추가할 수 있습니다 (필요한 경우).
-    // 예: res.setHeader('Access-Control-Allow-Origin', 'https://kevinbj0.github.io');
+    // CORS 설정
+    res.setHeader('Access-Control-Allow-Origin', 'https://kevinbj0.github.io');
     
     res.status(apiResponse.status).json(data);
 
