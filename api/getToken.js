@@ -26,6 +26,8 @@ export default async function handler(req, res) {
 
     const data = await apiResponse.json();
 
+    res.setHeader('Access-Control-Allow-Origin', 'https://kevinbj0.github.io');
+    
     // 성공 시 프론트엔드로 토큰 정보를 전달
     res.status(200).json(data);
   } catch (error) {
