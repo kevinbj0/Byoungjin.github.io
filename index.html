@@ -15,31 +15,52 @@
 
     <script src="https://connect-flow-8014--ps.sandbox.lightning.force.com/lightning/lightning.out.js"></script>
     <script>
-        const accessToken = '00DJO000000zspt!AQEAQJ6V8YukIdUIdG57MFs02trt4PReAiaNjsdMjCPdN6xCJRohmQ64TyZfTtste3i9Q4TOTLYWLz4OJgCVeVvJCnlyYK1g';
-        const salesforceUrl = 'https://connect-flow-8014--ps.sandbox.lightning.force.com/';
 
-        const appName = 'c:zzChatBot_Aura';
-       
-        const lwcAttributes = {
-            isDarkMode: false,
-            chatbot_width: '350px',
-            chatbot_height: '600px'
-        };
+        const myApiUrl = '/api/getToken';
 
-        $Lightning.use(appName,
-            () => {
-                $Lightning.createComponent(
-                    "c:sj_Chatbot",
-                    lwcAttributes,
-                    "agentforceChatbotDivId",
-                    (cmp) => {
-                        console.log('d');
-                    }
-                );
-            },
-            salesforceUrl,
-            accessToken  
-        );
+        fetch(myApiUrl)
+        .then(response => {
+            // 백엔드가 응답을 제대로 줬는지 확인
+            if (!response.ok) {
+            console.error('백엔드에서 에러 발생');
+            return;
+            }
+            return response.json();
+        })
+        .then(data => {
+            // 백엔드가 Salesforce로부터 받아온 토큰
+            const accessToken = data.access_token;
+            console.log("백엔드를 통해 안전하게 토큰을 받았습니다:", accessToken);
+            
+            const salesforceUrl = 'https://connect-flow-8014--ps.sandbox.lightning.force.com/';
+
+            const appName = 'c:zzChatBot_Aura';
+        
+            const lwcAttributes = {
+                isDarkMode: false,
+                chatbot_width: '350px',
+                chatbot_height: '600px'
+            };
+
+            $Lightning.use(appName,
+                () => {
+                    $Lightning.createComponent(
+                        "c:sj_Chatbot",
+                        lwcAttributes,
+                        "agentforceChatbotDivId",
+                        (cmp) => {
+                            console.log('d');
+                        }
+                    );
+                },
+                salesforceUrl,
+                accessToken  
+            );
+        })
+        .catch(error => {
+            console.error('호출 실패:', error);
+        });
+        
     </script>
 </body>
 </html>
