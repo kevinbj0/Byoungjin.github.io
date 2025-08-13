@@ -16,13 +16,13 @@
     <script src="https://connect-flow-8014--ps.sandbox.lightning.force.com/lightning/lightning.out.js"></script>
     <script>
 
-        const myApiUrl = 'byoungjin-github-io.vercel.app/api/getToken';
+        const myApiUrl = 'https://byoungjin-github-io.vercel.app/api/getToken';
 
         fetch(myApiUrl)
         .then(response => {
             // 백엔드가 응답을 제대로 줬는지 확인
             if (!response.ok) {
-            console.error('백엔드에서 에러 발생4');
+            console.error('백엔드에서 에러 발생1');
             return;
             }
             return response.json();
