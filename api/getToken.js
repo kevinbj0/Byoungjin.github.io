@@ -3,8 +3,8 @@ export default async function handler(req, res) {
   console.log("테스트1");
   const TOKEN_URL =
     "https://connect-flow-8014--ps.sandbox.my.salesforce.com/services/oauth2/token";
-  const CLIENT_ID = "3MVG91x_T0diigV8fsZu5XsZ6laUs2emfHf5SW7tJI46W7Tilwn84t2HRvQPuhXq_s9K.RNM3XQF1NLBFaDgN";
-  const CLIENT_SECRET = "89ACA29E4EC15EE072FDC94FE591C016DFCBE5267926543C2447F01988E6623C";
+  const CLIENT_ID = process.env.SALESFORCE_CLIENT_ID;
+  const CLIENT_SECRET = process.env.SALESFORCE_CLIENT_SECRET;
   console.log("테스트2");
   const params = new URLSearchParams();
   params.append("grant_type", "client_credentials");
