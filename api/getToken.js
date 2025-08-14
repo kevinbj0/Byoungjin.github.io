@@ -1,6 +1,11 @@
 export default async function handler(req, res) {
   // Vercel에 설정된 환경 변수를 안전하게 불러옵니다.
   const TOKEN_URL = "https://test.salesforce.com/services/oauth2/token";
+  const CLIENT_ID = "3MVG91x_T0diigV8fsZu5XsZ6laUs2emfHf5SW7tJI46W7Tilwn84t2HRvQPuhXq_s9K.RNM3XQF1NLBFaDgN";
+  const CLIENT_SECRET = "89ACA29E4EC15EE072FDC94FE591C016DFCBE5267926543C2447F01988E6623C";
+  const USERNAME = "daeushi_poc@force.com.ps";
+  const PASSWORD = "demo123!!"; // 비밀번호 + 보안토큰
+
   const CLIENT_ID = process.env.SALESFORCE_CLIENT_ID;
   const CLIENT_SECRET = process.env.SALESFORCE_CLIENT_SECRET;
   const USERNAME = process.env.SALESFORCE_USERNAME;
