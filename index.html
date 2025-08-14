@@ -509,24 +509,24 @@ print(result.text)
                     chatbot_height: '700px'
                 };
     
-            $Lightning.use(appName,
-                () => {
-                    $Lightning.createComponent(
-                        "c:sj_Chatbot",
-                        lwcAttributes,
-                        componentContainer,
-                        (cmp) => {
-                            console.log('salesforce chatbot');
-                        }
-                    );
-                },
-                salesforceUrl,
-                accessToken  
-            );
-        })
-        .catch(error => {
-            console.error('전체 프로세스 호출 실패2:', error);
-        });
+                $Lightning.use(appName,
+                    () => {
+                        $Lightning.createComponent(
+                            "c:sj_Chatbot",
+                            lwcAttributes,
+                            componentContainer,
+                            (cmp) => {
+                                console.log('salesforce chatbot');
+                            }
+                        );
+                    },
+                    salesforceUrl,
+                    accessToken  
+                );
+            })
+            .catch(error => {
+                console.error('전체 프로세스 호출 실패2:', error);
+            });
     </script>
     </body>
 </html>
