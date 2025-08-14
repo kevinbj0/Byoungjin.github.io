@@ -6,10 +6,10 @@ export default async function handler(req, res) {
   const USERNAME = "daeushi_poc@force.com.ps";
   const PASSWORD = "demo123!!"; // 비밀번호 + 보안토큰
 
-  const CLIENT_ID = process.env.SALESFORCE_CLIENT_ID;
-  const CLIENT_SECRET = process.env.SALESFORCE_CLIENT_SECRET;
-  const USERNAME = process.env.SALESFORCE_USERNAME;
-  const PASSWORD = process.env.SALESFORCE_PASSWORD; // 비밀번호 + 보안토큰
+  // const CLIENT_ID = process.env.SALESFORCE_CLIENT_ID;
+  // const CLIENT_SECRET = process.env.SALESFORCE_CLIENT_SECRET;
+  // const USERNAME = process.env.SALESFORCE_USERNAME;
+  // const PASSWORD = process.env.SALESFORCE_PASSWORD; // 비밀번호 + 보안토큰
 
   const params = new URLSearchParams();
   params.append("grant_type", "password"); // ✅ grant_type 변경
