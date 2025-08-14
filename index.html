@@ -1,63 +1,493 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salesforce LWC Loader</title>
+    <title>최신 기술 동향에 대하여 - 커뮤니티 게시글</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <style>
-        body {
-            font-family: sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+        :root {
+            --primary-color: #367cff;
+            --border-color: #e0e0e0;
+            --background-color: #f7f9fa;
+            --text-color: #2c3e50;
+            --text-secondary-color: #888;
+            --card-background: #ffffff;
+            --code-background: #2d2d2d;
         }
-        #agentforceChatbotDivId {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .post-card {
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             overflow: hidden;
         }
-        #errorMessage {
-            color: red;
-            background-color: #ffebee;
-            padding: 1rem;
+
+        /* 헤더 */
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .author-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .author-name:hover {
+            text-decoration: underline;
+        }
+
+        .post-timestamp {
+            font-size: 0.9rem;
+            color: var(--text-secondary-color);
+        }
+
+        .menu-button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text-secondary-color);
+        }
+
+        /* 본문 */
+        .post-body {
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .post-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .post-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .post-image {
+            max-width: 100%;
             border-radius: 8px;
-            max-width: 600px;
+            margin: 1.5rem 0;
+        }
+
+        .post-content pre {
+            background-color: var(--code-background);
+            color: #f8f8f2;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'D2Coding', monospace;
+            font-size: 0.95rem;
+        }
+
+        /* 태그 및 첨부파일 */
+        .post-attachments {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .post-tags .tag {
+            display: inline-block;
+            background-color: #eef4ff;
+            color: var(--primary-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            font-weight: 500;
+        }
+
+        .attachment-list {
+            margin-top: 1.5rem;
+        }
+
+        .attachment-list h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+        }
+        .attachment-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .attachment-list a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .attachment-list a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+
+        /* 푸터 */
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background-color: #fbfcfe;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .post-stats {
+            font-size: 0.9rem;
+            color: var(--text-secondary-color);
+        }
+        .post-stats span {
+            margin-right: 1rem;
+        }
+
+        .post-interactions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .interaction-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .interaction-button:hover {
+            background-color: #f1f1f1;
+        }
+
+        .like-button.active {
+            background-color: #ffeff4;
+            border-color: #ffccd5;
+            color: #e53e3e;
+        }
+
+        /* 댓글 섹션 */
+        .comment-section {
+            margin-top: 2rem;
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .comment-list .comment {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .comment-list .comment:last-child {
+            border-bottom: none;
+        }
+
+        .comment-body {
+            width: 100%;
+        }
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+        .comment-content {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .comment-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+        .comment-input-wrapper {
+            width: 100%;
+            display: flex;
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        .comment-input-wrapper input {
+            flex-grow: 1;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .comment-input-wrapper button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .comment-input-wrapper button:hover {
+            background-color: #2563eb;
         }
     </style>
-</head>
+    </head>
 <body>
-    <!-- 챗봇이 렌더링될 컨테이너 -->
-    <div id="agentforceChatbotDivId"></div>
-    <!-- 에러 메시지를 표시할 컨테이너 -->
-    <div id="errorMessage" style="display:none;"></div>
+
+    <main class="container">
+        <article class="post-card">
+            <header class="post-header">
+                <div class="author-profile">
+                    <img src="https://i.pravatar.cc/50?u=user1" alt="작성자 프로필 사진" class="author-avatar">
+                    <div class="author-info">
+                        <a href="#" class="author-name">테크노트</a>
+                        <span class="post-timestamp">2025년 8월 13일</span>
+                    </div>
+                </div>
+                <div class="post-actions-menu">
+                    <button class="menu-button"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+            </header>
+
+            <section class="post-body">
+                <h1 class="post-title">2025년 하반기 주목해야 할 AI 기술 동향</h1>
+                <div class="post-content">
+                    <p>안녕하세요, 커뮤니티 회원 여러분. 오늘은 2025년 하반기를 주도할 것으로 예상되는 몇 가지 주요 AI 기술에 대해 이야기해보고자 합니다.</p>
+                    <p>생성형 AI의 발전은 계속해서 모든 산업에 큰 영향을 미치고 있으며, 특히 '멀티모달(Multi-modal)' AI의 성장이 두드러집니다. 텍스트뿐만 아니라 이미지, 음성, 비디오를 동시에 이해하고 생성하는 모델들이 대중화될 것입니다.</p>
+                    <img src="https://images.unsplash.com/photo-1677756119517-756a188d2d94?w=800" alt="AI 기술 관련 이미지" class="post-image">
+                    <p>아래는 간단한 Python 코드 예시입니다. 이런 식으로 AI 모델을 호출할 수 있습니다.</p>
+                    <pre><code class="language-python">
+import ailib
+
+# Initialize the multimodal AI client
+model = ailib.MultimodalModel(api_key="YOUR_API_KEY")
+
+# Generate text based on an image and a text prompt
+result = model.generate(
+    image_path="path/to/image.jpg",
+    prompt="이 이미지에 어울리는 광고 문구를 만들어줘."
+)
+
+print(result.text)
+                    </code></pre>
+                    <p>이러한 변화에 어떻게 대비하고 계신가요? 여러분의 의견을 댓글로 남겨주세요!</p>
+                </div>
+            </section>
+
+            <section class="post-attachments">
+                <div class="post-tags">
+                    <span class="tag">#AI</span>
+                    <span class="tag">#머신러닝</span>
+                    <span class="tag">#기술동향</span>
+                    <span class="tag">#2025</span>
+                </div>
+                <div class="attachment-list">
+                    <h4><i class="fa-solid fa-paperclip"></i> 첨부파일</h4>
+                    <ul>
+                        <li><a href="#">AI 기술 동향 보고서.pdf</a> (2.5MB)</li>
+                        <li><a href="#">관련 데이터셋.zip</a> (15.7MB)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <footer class="post-footer">
+                <div class="post-stats">
+                    <span>조회수 1,204회</span>
+                    <span>댓글 <span id="comment-count">2</span>개</span>
+                </div>
+                <div class="post-interactions">
+                    <button class="interaction-button like-button">
+                        <i class="fa-regular fa-heart"></i>
+                        <span>좋아요</span>
+                        <span class="count" id="like-count">32</span>
+                    </button>
+                    <button class="interaction-button share-button">
+                        <i class="fa-solid fa-share-nodes"></i>
+                        <span>공유하기</span>
+                    </button>
+                </div>
+            </footer>
+        </article>
+
+        <section class="comment-section">
+            <h2>댓글</h2>
+            <div class="comment-list" id="comment-list">
+                <div class="comment">
+                    <img src="https://i.pravatar.cc/40?u=user2" alt="댓글 작성자 프로필 사진" class="author-avatar">
+                    <div class="comment-body">
+                        <div class="comment-header">
+                            <a href="#" class="author-name">코딩꿈나무</a>
+                            <span class="comment-timestamp">3시간 전</span>
+                        </div>
+                        <p class="comment-content">정말 유용한 정보네요! 특히 멀티모달 AI의 발전 방향이 기대됩니다.</p>
+                    </div>
+                </div>
+                <div class="comment">
+                    <img src="https://i.pravatar.cc/40?u=user3" alt="댓글 작성자 프로필 사진" class="author-avatar">
+                    <div class="comment-body">
+                        <div class="comment-header">
+                            <a href="#" class="author-name">데이터분석가</a>
+                            <span class="comment-timestamp">1시간 전</span>
+                        </div>
+                        <p class="comment-content">첨부해주신 보고서도 잘 읽었습니다. 감사합니다!</p>
+                    </div>
+                </div>
+            </div>
+
+            <form class="comment-form" id="comment-form">
+                <img src="https://i.pravatar.cc/40?u=currentUser" alt="내 프로필 사진" class="author-avatar">
+                <div class="comment-input-wrapper">
+                    <input type="text" id="comment-input" placeholder="댓글을 입력하세요..." required>
+                    <button type="submit">등록</button>
+                </div>
+            </form>
+        </section>
+    </main>
 
     <script src="https://connect-flow-8014--ps.sandbox.lightning.force.com/lightning/lightning.out.js"></script>
     <script>
-        // 💡 수정된 부분: Vercel URL 대신 새로운 Heroku 앱 URL로 변경합니다.
+        // DOM이 완전히 로드된 후에 스크립트 실행
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 필요한 요소들을 선택
+            const likeButton = document.querySelector('.like-button');
+            const likeCountSpan = document.getElementById('like-count');
+            const shareButton = document.querySelector('.share-button');
+            const commentForm = document.getElementById('comment-form');
+            const commentInput = document.getElementById('comment-input');
+            const commentList = document.getElementById('comment-list');
+            const commentCountSpan = document.getElementById('comment-count');
+
+            // --- 1. 좋아요 버튼 기능 ---
+            likeButton.addEventListener('click', () => {
+                // 'active' 클래스를 토글하여 버튼 색상 변경
+                likeButton.classList.toggle('active');
+                
+                // 현재 좋아요 수를 숫자로 변환
+                let currentLikes = parseInt(likeCountSpan.textContent, 10);
+
+                // 'active' 클래스가 있으면 좋아요 수 증가, 없으면 감소
+                if (likeButton.classList.contains('active')) {
+                    currentLikes++;
+                    likeButton.querySelector('.fa-heart').classList.replace('fa-regular', 'fa-solid');
+                } else {
+                    currentLikes--;
+                    likeButton.querySelector('.fa-heart').classList.replace('fa-solid', 'fa-regular');
+                }
+
+                // 화면에 변경된 좋아요 수 표시
+                likeCountSpan.textContent = currentLikes;
+            });
+
+            // --- 2. 공유하기 버튼 기능 ---
+            shareButton.addEventListener('click', () => {
+                // 현재 페이지의 URL을 클립보드에 복사 (실제 배포 환경에서만 동작)
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(window.location.href)
+                        .then(() => alert('게시글 주소가 클립보드에 복사되었습니다.'))
+                        .catch(() => alert('복사에 실패했습니다.'));
+                } else {
+                    alert('클립보드 복사 기능이 지원되지 않는 환경입니다.');
+                }
+            });
+
+            // --- 3. 댓글 작성 기능 ---
+            commentForm.addEventListener('submit', (event) => {
+                // 폼 제출 시 페이지가 새로고침되는 기본 동작 방지
+                event.preventDefault();
+
+                // 입력된 댓글 내용 가져오기 (앞뒤 공백 제거)
+                const commentText = commentInput.value.trim();
+
+                // 내용이 없으면 아무것도 하지 않음
+                if (commentText === '') return;
+
+                // 새로운 댓글 요소를 동적으로 생성
+                const newComment = document.createElement('div');
+                newComment.classList.add('comment');
+                newComment.innerHTML = `
+                    <img src="https://i.pravatar.cc/40?u=currentUser" alt="내 프로필 사진" class="author-avatar">
+                    <div class="comment-body">
+                        <div class="comment-header">
+                            <a href="#" class="author-name">나</a>
+                            <span class="comment-timestamp">방금 전</span>
+                        </div>
+                        <p class="comment-content">${commentText.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
+                    </div>
+                `;
+                // XSS 공격 방지를 위해 간단한 HTML 이스케이프 처리
+
+                // 생성된 댓글을 댓글 목록의 맨 앞에 추가
+                commentList.prepend(newComment);
+
+                // 입력창 비우기
+                commentInput.value = '';
+
+                // 댓글 수 업데이트
+                updateCommentCount();
+            });
+
+            // 댓글 수 업데이트 함수
+            function updateCommentCount() {
+                const count = commentList.children.length;
+                commentCountSpan.textContent = count;
+            }
+        });
+
+
+        const chatbotDiv = document.createElement('div');
+        chatbotDiv.id = 'agentforceChatbotDivId';
+        document.body.appendChild(chatbotDiv);
+
         const myApiUrl = 'https://pyheroku-d21d18e4f257.herokuapp.com/api/getToken';
 
         const salesforceUrl = 'https://connect-flow-8014--ps.sandbox.lightning.force.com/';
         const appName = 'c:zzChatBot_Aura';
-        const componentName = 'c:sj_Chatbot';
+        const componentContainer = 'agentforceChatbotDivId';
 
-        const lwcAttributes = {
-            isDarkMode: false,
-            chatbot_width: '350px',
-            chatbot_height: '600px'
-        };
-
-        // 에러 메시지를 화면에 표시하는 함수
-        function displayError(message) {
-            const errorDiv = document.getElementById('errorMessage');
-            errorDiv.textContent = message;
-            errorDiv.style.display = 'block';
-        }
-
-        // API를 호출하여 토큰을 가져오고 LWC를 로드하는 로직
+        
         fetch(myApiUrl, { method: 'POST' }) // 프록시 서버에 POST 요청을 보냅니다.
             .then(response => {
                 if (!response.ok) {
@@ -72,33 +502,31 @@
                 if (!accessToken) {
                     throw new Error("응답 데이터에 access_token이 없습니다.");
                 }
-                
-                console.log("Heroku 프록시를 통해 안전하게 토큰을 받았습니다:", accessToken);
-
-                $Lightning.use(appName,
-                    () => {
-                        $Lightning.createComponent(
-                            componentName,
-                            lwcAttributes,
-                            "agentforceChatbotDivId",
-                            (cmp, err) => {
-                                if (err) {
-                                    console.error('LWC 컴포넌트 생성 실패:', err);
-                                    displayError(`LWC 컴포넌트를 생성하는 데 실패했습니다: ${err}`);
-                                    return;
-                                }
-                                console.log('LWC 컴포넌트가 성공적으로 생성되었습니다.');
-                            }
-                        );
-                    },
-                    salesforceUrl,
-                    accessToken
-                );
-            })
-            .catch(error => {
-                console.error('전체 프로세스 호출 실패:', error);
-                displayError(`오류가 발생했습니다: ${error.message}`);
-            });
+                console.log("백엔드를 통해 안전하게 토큰을 받았습니다:", accessToken);
+                const lwcAttributes = {
+                    isDarkMode: true,
+                    chatbot_width: '500px',
+                    chatbot_height: '700px'
+                };
+    
+            $Lightning.use(appName,
+                () => {
+                    $Lightning.createComponent(
+                        "c:sj_Chatbot",
+                        lwcAttributes,
+                        componentContainer,
+                        (cmp) => {
+                            console.log('salesforce chatbot');
+                        }
+                    );
+                },
+                salesforceUrl,
+                accessToken  
+            );
+        })
+        .catch(error => {
+            console.error('전체 프로세스 호출 실패2:', error);
+        });
     </script>
-</body>
+    </body>
 </html>
