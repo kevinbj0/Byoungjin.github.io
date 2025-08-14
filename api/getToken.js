@@ -2,10 +2,16 @@ export default async function handler(req, res) {
   // 환경 변수 사용을 강력히 권장합니다.
   // 이 값들은 Vercel 프로젝트 설정에 환경 변수로 등록해야 합니다.
   const TOKEN_URL = "https://test.salesforce.com/services/oauth2/token";
-  const CLIENT_ID = process.env.SALESFORCE_CLIENT_ID || "3MVG91x_T0diigV8fsZu5XsZ6laUs2emfHf5SW7tJI46W7Tilwn84t2HRvQPuhXq_s9K.RNM3XQF1NLBFaDgN";
-  const CLIENT_SECRET = process.env.SALESFORCE_CLIENT_SECRET || "89ACA29E4EC15EE072FDC94FE591C016DFCBE5267926543C2447F01988E6623C";
-  const USERNAME = process.env.SALESFORCE_USERNAME || "daeushi_poc@force.com.ps";
-  const PASSWORD = process.env.SALESFORCE_PASSWORD || "demo123!!ffBbVzje2sYHRgK5V2rxQ4ed0"; // 중요: 비밀번호 + 보안토큰
+  const CLIENT_ID = "3MVG91x_T0diigV8fsZu5XsZ6laUs2emfHf5SW7tJI46W7Tilwn84t2HRvQPuhXq_s9K.RNM3XQF1NLBFaDgN";
+  const CLIENT_SECRET = "89ACA29E4EC15EE072FDC94FE591C016DFCBE5267926543C2447F01988E6623C";
+  const USERNAME = "daeushi_poc@force.com.ps";
+  const PASSWORD = "demo123!!ffBbVzje2sYHRgK5V2rxQ4ed0"; // 중요: 비밀번호 + 보안토큰
+
+  // const TOKEN_URL = "https://test.salesforce.com/services/oauth2/token";
+  // const CLIENT_ID = process.env.SALESFORCE_CLIENT_ID || "3MVG91x_T0diigV8fsZu5XsZ6laUs2emfHf5SW7tJI46W7Tilwn84t2HRvQPuhXq_s9K.RNM3XQF1NLBFaDgN";
+  // const CLIENT_SECRET = process.env.SALESFORCE_CLIENT_SECRET || "89ACA29E4EC15EE072FDC94FE591C016DFCBE5267926543C2447F01988E6623C";
+  // const USERNAME = process.env.SALESFORCE_USERNAME || "daeushi_poc@force.com.ps";
+  // const PASSWORD = process.env.SALESFORCE_PASSWORD || "demo123!!ffBbVzje2sYHRgK5V2rxQ4ed0"; // 중요: 비밀번호 + 보안토큰
 
   // CORS 헤더 설정 (모든 요청에 대해 먼저 설정)
   // 허용할 특정 오리진을 명시하는 것이 보안에 좋습니다.
