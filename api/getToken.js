@@ -46,7 +46,8 @@ export default async function handler(req, res) {
       console.error("Salesforce API Error:", data); // 서버 로그에 상세 에러 기록
       return res.status(apiResponse.status).json({
         error: "Salesforce authentication failed",
-        error_details: data
+        error_details: data,
+        data: params
       });
     }
     
