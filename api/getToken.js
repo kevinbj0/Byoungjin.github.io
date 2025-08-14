@@ -28,7 +28,7 @@ export default async function handler(req, res) {
   // } else {
   //   // 허용되지 않은 origin의 요청은 여기서 처리하거나 무시할 수 있습니다.
   // }
-  res.setHeader('Access-Control-Allow-Origin', 'https://seungjun124.github.io');
+  res.setHeader('Access-Control-Allow-Origin', 'https://kevinbj0.github.io');
   // CORS 헤더 설정 (모든 요청에 대해 먼저 설정)
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
