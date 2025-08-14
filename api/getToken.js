@@ -13,9 +13,23 @@ export default async function handler(req, res) {
   const USERNAME = process.env.SALESFORCE_USERNAME;
   const PASSWORD = process.env.SALESFORCE_PASSWORD; // 중요: 비밀번호 + 보안토큰
 
+
+  const allowedOrigins = [
+    'https://kevinbj0.github.io',
+    'https://seungjun.github.io', // 여기에 다른 github.io 주소를 추가하세요.
+    'http://localhost:3000' // 로컬 개발 환경 테스트용
+  ];
+  const origin = req.headers.origin;
+
+  // 2. 요청의 origin이 허용된 목록에 있는지 확인합니다.
+  if (allowedOrigins.includes(origin)) {
+    // 3. 만약 있다면, 해당 origin을 헤더에 설정합니다.
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    // 허용되지 않은 origin의 요청은 여기서 처리하거나 무시할 수 있습니다.
+  }
+  
   // CORS 헤더 설정 (모든 요청에 대해 먼저 설정)
-  // 허용할 특정 오리진을 명시하는 것이 보안에 좋습니다.
-  res.setHeader('Access-Control-Allow-Origin', 'https://kevinbj0.github.io');
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
