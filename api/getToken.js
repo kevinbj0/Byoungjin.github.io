@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
   const allowedOrigins = [
     'https://kevinbj0.github.io',
-    'https://seungjun.github.io', // 여기에 다른 github.io 주소를 추가하세요.
+    'https://seungjun124.github.io', // 여기에 다른 github.io 주소를 추가하세요.
     'http://localhost:3000' // 로컬 개발 환경 테스트용
   ];
   const origin = req.headers.origin;
