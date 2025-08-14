@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   const CLIENT_ID = process.env.SALESFORCE_CLIENT_ID || "3MVG91x_T0diigV8fsZu5XsZ6laUs2emfHf5SW7tJI46W7Tilwn84t2HRvQPuhXq_s9K.RNM3XQF1NLBFaDgN";
   const CLIENT_SECRET = process.env.SALESFORCE_CLIENT_SECRET || "89ACA29E4EC15EE072FDC94FE591C016DFCBE5267926543C2447F01988E6623C";
   const USERNAME = process.env.SALESFORCE_USERNAME || "daeushi_poc@force.com.ps";
-  const PASSWORD = process.env.SALESFORCE_PASSWORD || "demo123!!"; // 중요: 비밀번호 + 보안토큰
+  const PASSWORD = process.env.SALESFORCE_PASSWORD || "demo123!!ffBbVzje2sYHRgK5V2rxQ4ed0"; // 중요: 비밀번호 + 보안토큰
 
   // CORS 헤더 설정 (모든 요청에 대해 먼저 설정)
   // 허용할 특정 오리진을 명시하는 것이 보안에 좋습니다.
