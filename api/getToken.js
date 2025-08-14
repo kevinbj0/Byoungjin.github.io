@@ -47,7 +47,7 @@ export default async function handler(req, res) {
       return res.status(apiResponse.status).json({
         error: "Salesforce authentication failed",
         error_details: data,
-        data: params
+        data: Object.fromEntries(params)
       });
     }
     
